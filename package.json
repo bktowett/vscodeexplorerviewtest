@@ -1,0 +1,108 @@
+{
+  "name": "vscodeexplorerviewtest",
+  "displayName": "VSCodeExplorerViewTest",
+  "description": "testing explorer view",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:json",
+		"onLanguage:jsonc",
+    "onCommand:nodeDependencies.Kiptoo"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "nodeDependencies.Kiptoo",
+        "title": "Kiptoo",
+        "icon":{
+          "light":"resources/light/refresh.svg",
+          "dark":"resources/dark/refresh.svg"
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id":"package-explorer",
+          "title": "Package Explorer",
+          "icon":"media/dep.svg"
+        }
+      ]
+    },
+    "views": {
+      "package-explorer":[
+        {
+          "id": "nodeDependencies",
+          "name": "Node Dependencies",
+          "icon": "media/dep.svg",
+          "contextualTitle": "Package Explorer"
+
+        }
+      ],
+      "explorer": [
+				{
+					"id": "jsonOutline",
+					"name": "Json Outline",
+					"when": "jsonOutlineEnabled"
+				},
+				{
+					"id": "ftpExplorer",
+					"name": "FTP Explorer"
+				},
+				{
+					"id": "fileExplorer",
+					"name": "File Explorer"
+				},
+				{
+					"id": "testView",
+					"name": "Test View"
+				},
+				{
+					"id": "testViewDragAndDrop",
+					"name": "Test View Drag and Drop"
+				}
+			]
+    },
+    "menus": {
+      "view/title":[
+        {
+          "command": "nodeDependencies.Kiptoo",
+          "when": "view == nodeDependencies",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context":[
+        {
+          "command": "nodeDependencies.Kiptoo",
+          "when": "view == nodeDependencies && viewItem == dependency"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.82.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.6",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}
